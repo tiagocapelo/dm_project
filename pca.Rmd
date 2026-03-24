@@ -1,0 +1,96 @@
+
+```{r}
+library(ucimlrepo)
+library(corrplot)
+```
+
+Load data:
+```{r}
+MI <- fetch_ucirepo(id = 579)
+
+mi_original = MI$data$original
+mi_targets = MI$data$targets
+
+MI$variables$type
+```
+
+For complication prediction at the time of admission to hospital, remove the suggested columns:
+```{r}
+to_remove = c(93, 94, 95, 100, 101, 102, 103, 104, 105)
+
+mi_features = mi_original[ setdiff(2:112, to_remove) ]
+```
+
+
+Building a data frame for making a csv file to share with Alessandro.
+
+```{r}
+variable_types = MI$variables$type
+mi_df = as.data.frame(mi_original)
+
+mi_df = rbind(variable_types, mi_df)
+```
+
+
+The data contains the following percentages of missing data per column:
+```{r, echo = F}
+100 * colSums(is.na(mi_features)) / dim(mi_features)[1]
+```
+
+
+Identify continuous variables 
+```{r}
+var_types = MI$variables$types
+
+mi_features_cont <- mi_features[, (var_types == "Continuous")]
+
+100 * colSums(is.na(mi_features_cont)) / dim(mi_features)[1]
+```
+
+Identify numerical columns.(Continuous, Integer, Binary) 
+```{r, echo = FALSE, results = 'hide'}
+mi_features_num <- mi_features[, sapply(mi_features, is.numeric)]
+
+100 * colSums(is.na(mi_features_num)) / dim(mi_features)[1] 
+```
+
+Here we use a simple median imputation to avoid losing too many observations:
+```{r}
+
+for(i in 1:ncol(mi_features_num)) {
+  mi_features_num[is.na(mi_features_num[,i]), i] <- median(mi_features_num[,i], na.rm = TRUE)
+}
+
+tail(mi_features)
+```
+
+Scaling was used
+```{r, echo = F}
+pca <- prcomp(mi_features_num, center = TRUE, scale. = TRUE)
+
+summary(pca)
+```
+
+Data seems to be uncorrelated due to low variance in the several principal components, as shown by th corr. plot:
+
+```{r}
+R = cor(mi_features_num)
+corrplot(R, method = "color", tl.pos = "n")
+```
+
+#Questions
+
+What to do with missing values? MICE? missMDA? Some columns have over 90% missing values?
+Most of the variables are binary? How to procede? 
+
+
+
+
+```{r}
+
+
+
+```
+
+
+
