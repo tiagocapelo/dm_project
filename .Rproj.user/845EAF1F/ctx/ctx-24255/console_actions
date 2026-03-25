@@ -1,0 +1,36 @@
+{
+    "type": [
+        2,
+        2,
+        0,
+        1,
+        2,
+        2,
+        2,
+        0,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+    ],
+    "data": [
+        "\nR version 4.5.3 (2026-03-11) -- \"Reassured Reassurer\"\nCopyright (C) 2026 The R Foundation for Statistical Computing\nPlatform: x86_64-pc-linux-gnu\n\nR is free software and comes with ABSOLUTELY NO WARRANTY.\nYou are welcome to redistribute it under certain conditions.\nType 'license()' or 'licence()' for distribution details.\n\n  Natural language support but running in an English locale\n\nR is a collaborative project with many contributors.\nType 'contributors()' for more information and\n'citation()' on how to ci",
+        "te R or R packages in publications.\n\nType 'demo()' for some demos, 'help()' for on-line help, or\n'help.start()' for an HTML browser interface to help.\nType 'q()' to quit R.\n\n",
+        "> ",
+        "renv::init()",
+        "\nrenv: Project Environments for R\n\nWelcome to renv! It looks like this is your first time using renv.\nThis is a one-time message, briefly describing some of renv's functionality.\n\nrenv will write to files within the active project folder, including:\n\n  - A folder 'renv' in the project directory, and\n  - A lockfile called 'renv.lock' in the project directory.\n\nIn particular, projects using renv will normally use a private, per-project\nR library, in which new packages will be installed. This project library i",
+        "s\nisolated from other R libraries on your system.\n\nIn addition, renv will update files within your project directory, including:\n\n  - .gitignore\n  - .Rbuildignore\n  - .Rprofile\n\nFinally, renv maintains a local cache of data on the filesystem, located at:\n\n  - \"~/.cache/R/renv\"\n\nThis path can be customized: please see the documentation in `\u001B]8;;x-r-help:renv::paths\u0007?renv::paths\u001B]8;;\u0007`.\n\nPlease read the introduction vignette with `vignette(\"renv\")` for more information.\nYou can browse the package documentatio",
+        "n online at https://rstudio.github.io/renv/.\n",
+        "Do you want to proceed? [y/N]: ",
+        "y",
+        "\n- \"~/.cache/R/renv\" has been created.\n- Linking packages into the project library ... [31/68] \b\b\b\b\b\b\b\b[32/68] \b\b\b\b\b\b\b\b[33/68] \b\b\b\b\b\b\b\b[34/68] \b\b\b\b\b\b\b\b[35/68] \b\b\b\b\b\b\b\b[36/68] \b\b\b\b\b\b\b\b[37/68] \b\b\b\b\b\b\b\b[38/68] \b\b\b\b\b\b\b\b[39/68] \b\b\b\b\b\b\b\b[40/68] \b\b\b\b\b\b\b\b[41/68] \b\b\b\b\b\b\b\b[42/68] \b\b\b\b\b\b\b\b[43/68] \b\b\b\b\b\b\b\b[44/68] \b\b\b\b\b\b\b\b[45/68] \b\b\b\b\b\b\b\b[46/68] \b\b\b\b\b\b\b\b[47/68] \b\b\b\b\b\b\b\b[48/68] \b\b\b\b\b\b\b\b[49/68] \b\b\b\b\b\b\b\b[50/68] \b\b\b\b\b\b\b\b[51/68] \b\b\b\b\b\b\b\b[52/68] \b\b\b\b\b\b\b\b[53/68] \b\b\b\b\b\b\b\b[54/68] \b\b\b\b\b\b\b\b[55/68] \b\b\b\b\b\b\b\b[56/68] \b\b\b\b\b\b\b\b[57/68] \b",
+        "\b\b\b\b\b\b\b[58/68] \b\b\b\b\b\b\b\b[59/68] \b\b\b\b\b\b\b\b[60/68] \b\b\b\b\b\b\b\b[61/68] \b\b\b\b\b\b\b\b[62/68] \b\b\b\b\b\b\b\b[63/68] \b\b\b\b\b\b\b\b[64/68] \b\b\b\b\b\b\b\b[65/68] \b\b\b\b\b\b\b\b[66/68] \b\b\b\b\b\b\b\b[67/68] \b\b\b\b\b\b\b\b[68/68] Done!\nThe following package(s) will be updated in the lockfile:\n\n# CRAN -------------------------------------------------------------\n- askpass        [* -> 1.2.1]\n- base64enc      [* -> 0.1-3]\n- bit            [* -> 4.6.0]\n- bit64          [* -> 4.6.0-1]\n- bslib          [* -> 0.9.0]\n- cachem         [* -> 1.1.0]\n- cli            [* -",
+        "> 3.6.5]\n- clipr          [* -> 0.8.0]\n- cpp11          [* -> 0.5.2]\n- crayon         [* -> 1.5.3]\n- curl           [* -> 7.0.0]\n- digest         [* -> 0.6.37]\n- dplyr          [* -> 1.2.0]\n- evaluate       [* -> 1.0.5]\n- farver         [* -> 2.1.2]\n- fastmap        [* -> 1.2.0]\n- fontawesome    [* -> 0.5.3]\n- forcats        [* -> 1.0.0]\n- fs             [* -> 1.6.6]\n- generics       [* -> 0.1.4]\n- ggplot2        [* -> 4.0.0]\n- glue           [* -> 1.8.0]\n- gtable         [* -> 0.3.6]\n- highr          [* ->",
+        " 0.11]\n- hms            [* -> 1.1.3]\n- htmltools      [* -> 0.5.8.1]\n- httr2          [* -> 1.2.2]\n- isoband        [* -> 0.2.7]\n- jquerylib      [* -> 0.1.4]\n- jsonlite       [* -> 2.0.0]\n- knitr          [* -> 1.50]\n- labeling       [* -> 0.4.3]\n- lifecycle      [* -> 1.0.5]\n- magrittr       [* -> 2.0.3]\n- memoise        [* -> 2.0.1]\n- mime           [* -> 0.13]\n- openssl        [* -> 2.3.3]\n- pillar         [* -> 1.11.1]\n- pkgconfig      [* -> 2.0.3]\n- prettyunits    [* -> 1.2.0]\n- progress       [* -> 1",
+        ".2.3]\n- purrr          [* -> 1.1.0]\n- R6             [* -> 2.6.1]\n- rappdirs       [* -> 0.3.3]\n- RColorBrewer   [* -> 1.1-3]\n- readr          [* -> 2.1.5]\n- renv           [* -> 1.1.8]\n- rlang          [* -> 1.1.7]\n- rmarkdown      [* -> 2.29]\n- S7             [* -> 0.2.0]\n- sass           [* -> 0.4.10]\n- scales         [* -> 1.4.0]\n- stringi        [* -> 1.8.7]\n- stringr        [* -> 1.5.1]\n- sys            [* -> 3.4.3]\n- tibble         [* -> 3.3.0]\n- tidyr          [* -> 1.3.1]\n- tidyselect     [* -> 1.2",
+        ".1]\n- tinytex        [* -> 0.57]\n- tzdb           [* -> 0.5.0]\n- ucimlrepo      [* -> 0.0.2]\n- utf8           [* -> 1.2.6]\n- vctrs          [* -> 0.7.1]\n- viridisLite    [* -> 0.4.2]\n- visdat         [* -> 0.6.0]\n- vroom          [* -> 1.6.5]\n- withr          [* -> 3.0.2]\n- xfun           [* -> 0.56]\n- yaml           [* -> 2.3.10]\n\nThe version of R recorded in the lockfile will be updated:\n- R              [* -> 4.5.3]\n\n- Lockfile written to \"~/Desktop/dm_project /renv.lock\".\n\nRestarting R session...\n\n"
+    ]
+}
