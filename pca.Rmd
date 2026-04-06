@@ -26,6 +26,7 @@ num_features <- as.data.frame(
 pca <- prcomp(num_features, center = TRUE, scale. = TRUE)
 
 summary(pca)
+plot(pca)
 ```
 
 The first components do not 'explain' much of the variance.
