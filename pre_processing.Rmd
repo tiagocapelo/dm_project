@@ -1,11 +1,13 @@
 
 ```{r}
 library(renv)
+library(visdat)
+library(ggplot2)
+library(ucimlrepo)
 ```
 
 Load Data from UCI-ML repository:
 ```{r}
-library(ucimlrepo)
 mi = fetch_ucirepo(id = 579)
 ```
 
@@ -16,7 +18,7 @@ mi_variables_df = as.data.frame(mi$variables)
 ```
 
 
-It is suggested that: "In general columns 2-112 can be used as input data for prediction. Possible complications (outputs) are listed in columns 113-124". There being four moments four complication prediction:
+It is suggested that: "In general columns 2-112 can be used as input data for prediction. Possible complications (outputs) are listed in columns 113-124". There being four moments for complication prediction:
 
 1."the time of admission to hospital: all input columns (2-112) except 93, 94, 95, 100, 101, 102, 103, 104, 105 can be used for prediction";
 
@@ -30,30 +32,98 @@ Due to lack of _cardiological_ knowledge we will approach moment 1:
 ```{r}
 to_remove = c(93, 94, 95, 100, 101, 102, 103, 104, 105)
 
-mi_features_df = mi_features_df[setdiff(2:111, to_remove)]# starting on index 2 in order to remove ID column 
+mi_features_df = mi_features_df[setdiff(1:111, to_remove)]
 
-mi_variables_df = mi_variables_df[setdiff(2:111, to_remove),]
+mi_variables_df = mi_variables_df[setdiff(2:dim(mi_variables_df)[1], to_remove +1),] # starting from index 2 to remove ID column
 row.names(mi_variables_df) = NULL #re-index non-removed rows
+
+setdiff(names(mi_features_df), mi_variables_df$name)
 ```
 
 Percentages of missing values by column:
 ```{r, include = FALSE}
-100 * colMeans(is.na(mi_features_df))
+pct_missing = 100 * colMeans(is.na(mi_features_df))
+
+# creating missing percentages column in mi_variables data frame 
+
+mi_variables_df$pct_missing <- ifelse(
+  mi_variables_df$missing_values == "yes",
+  pct_missing[mi_variables_df$name],
+  0
+)
 ```
 
 Visualization of missing values: 
 ```{r}
-library(visdat)
-library(ggplot2)
+# viss_miss returns a ggplot
 
-vis_miss(mi_features_df)+ #viss_miss returns a ggplot
+vis_miss(mi_features_df) + 
   theme(axis.text.x = element_blank()) #removes labels of columns/features
 ```
 
-Handling missing data:
+As it is not the focus of the course, to handle missing data we will stick to 
+simple imputation:
+
+1. median imputation for continuous and integer features, rounded to nearest integer
+
+2. mode (the most common element) imputation for categorical and binary features
+
+while eliminating columns with a high percentage of missing values (around 30-50%% ??).
+
+Simple imputation as done below may introduce bias therefore, adding some stochastic/random term would be cool.
 ```{r}
- 
+#defining mode function
+
+mmode = function(column){
+  names(which.max(table(column))) # get the max index in the frequency table
+} 
+
+#Imputation
+
+for (col_name in names(mi_features_df)) {
+  
+  var_col = mi_variables_df[mi_variables_df$name == col_name, ]
+  
+  if (var_col$role == "Feature") {
+    
+    if (var_col$type == "Continuous") {
+      
+      mi_features_df[, col_name] = ifelse(
+        is.na(mi_features_df[[col_name]]),         
+        median(mi_features_df[[col_name]], na.rm = TRUE),
+        mi_features_df[[col_name]]
+      )
+      
+    }
+    
+    if (var_col$type == "Integer") {
+      
+      mi_features_df[, col_name] = ifelse(
+        is.na(mi_features_df[[col_name]]),
+        round(median(mi_features_df[[col_name]], na.rm = TRUE)),
+        mi_features_df[[col_name]]
+      )
+      
+    }
+    
+    if (var_col$type %in% c("Categorical", "Binary")) {
+      
+      mi_features_df[, col_name] = ifelse(
+        is.na(mi_features_df[[col_name]]),
+        mmode(mi_features_df[[col_name]]),
+        mi_features_df[[col_name]]
+      )
+      
+    }
+    
+  }
+}
 ```
+
+Still we stress the importance of properly dealing with missing values, specially in the context of medical/clinical data.
+
+For some features, missing values may be essential to take some conclusions, as missing values may be explained by the context of the observed feature or even explained by other observed features in the data.
+
 
 
 Save data in the data folder:

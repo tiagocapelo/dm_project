@@ -1,37 +1,36 @@
+```{r}
+library("corrplot")
+```
 Load data:
 ```{r}
 mi_features = readRDS("data/mi_features.rds")
 mi_variables = readRDS("data/mi_variables.rds")
 ```
 
-Different feature types:
+Identify numerical columns/features: 
 ```{r}
-unique(mi_variables$type)
-```
+num_vars = mi_variables[mi_variables$type %in% c("Continuous", "Integer", "Binary"), ]
 
-Identify numerical columns/features:Continuous, Integer and Binary:
-```{r}
-#selects vars according to each
-mi_variables = mi_variables[
-  (mi_variables$type %in% c("Continuous", "Integer", "Binary")),]
+num_features = mi_features[intersect(names(mi_features),num_vars$name)] #filtering numeric features
 
-#selecting vars in the (features) data set
-mi_features = mi_features[
-  intersect(colnames(mi_features), mi_variables$name)
-  ]
+
 ```
 
 
 Different features have different units therefore we need to scale the covariance matrix:
 ```{r}
-pca <- prcomp(mi_features, center = TRUE, scale. = TRUE)
+num_features <- as.data.frame(
+  sapply(num_features, function(x) as.numeric(as.character(x)))
+)
+
+pca <- prcomp(num_features, center = TRUE, scale. = TRUE)
 
 summary(pca)
 ```
 
 The first components do not 'explain' much of the variance.
-Which indicate our data is uncorrelated between observations, as shown by th correlation plot:
+Which indicate our data is uncorrelated between features, as shown by th correlation plot:
 ```{r}
-R = cor(mi_features_num)
+R = cor(num_features)
 corrplot(R, method = "color", tl.pos = "n")
 ```
